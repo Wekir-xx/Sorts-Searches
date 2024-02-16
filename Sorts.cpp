@@ -73,6 +73,39 @@ void insert_sort(int* array, size_t size)
     }
 }
 
+void In_merge_sort(int* array, size_t start, size_t end)
+{
+    if (end - start < 2) return;
+    if (end - start == 2)
+    {
+        if (array[start] <= array[start + 1]) return;
+        std::swap(array[start], array[start + 1]);        
+    }
+    In_merge_sort(array, start, start + (end - start) / 2);
+    In_merge_sort(array, start + (end - start) / 2, end);
+
+    int* array_2 = new int[end - start];
+    size_t index = 0;
+    size_t begin1 = start;
+    size_t end1 = start + (end - start) / 2;
+    size_t begin2 = end1;
+    while (index < end - start)
+    {
+        if (begin1 >= end1 || (begin2 < end && array[begin2] <= array[begin1]))
+            array_2[index++] = array[begin2++];
+        else
+            array_2[index++] = array[begin1++];
+    }
+    for (size_t i = start; i < end; ++i)
+        array[i] = array_2[i - start];
+    delete[] array_2;
+}
+
+void merge_sort(int* array, size_t size)
+{
+    In_merge_sort(array, 0, size);
+}
+
 void In_quick_sort(int* array, int first, int last)
 {
     {
