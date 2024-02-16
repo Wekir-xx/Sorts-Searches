@@ -1,11 +1,13 @@
 ﻿#include <iostream>
 #include <functional>
+#include <chrono>
 
 //////////////////////SORTS///////////////////////////
 void buble_sort(int* array, size_t size);
 void sheiker_sort(int* array, size_t size);
 void choose_sort(int* array, size_t size);
 void insert_sort(int* array, size_t size);
+void merge_sort(int* array, size_t size);
 void quick_sort(int* array, size_t size);
 void thread_quick_sort(int* array, size_t size);
 ///////////////////////////////////////////////////////
@@ -41,9 +43,12 @@ public:
 
     void use_sort(const std::function<void(int*, size_t)>& function)
     {
+        auto start = chrono::high_resolution_clock::now();
         std::cout << "start sort" << std::endl;
         function(array, size);
-        std::cout << "end sort" << std::endl;
+        auto end = chrono::high_resolution_clock::now();
+        chrono::duration<double> duration = end - start;
+        std::cout << "end sort: " << duration.count() << std::endl;
     }
 
     int use_search(const std::function<int(int*, size_t, int )>& function, int number)
@@ -60,5 +65,7 @@ int main()
 {
     Array a{ 10000000 };
     a.use_sort(quick_sort);
+    Array b{ 10000000 };
+    b.use_sort(merge_sort);
     return 0;
 }
