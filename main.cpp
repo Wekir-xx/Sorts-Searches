@@ -43,11 +43,11 @@ public:
 
     void use_sort(const std::function<void(int*, size_t)>& function)
     {
-        auto start = chrono::high_resolution_clock::now();
+        auto start = std::chrono::high_resolution_clock::now();
         std::cout << "start sort" << std::endl;
         function(array, size);
-        auto end = chrono::high_resolution_clock::now();
-        chrono::duration<double> duration = end - start;
+        auto end = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double> duration = end - start;
         std::cout << "end sort: " << duration.count() << std::endl;
     }
 
