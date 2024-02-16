@@ -21,16 +21,16 @@ int binary_search(int* array, size_t size, int number)
 
 int interpolating_search(int* array, size_t size, int number)
 {
-	int left = 0, right = size - 1, now;
-	while ((array[left] < number) && (array[right] > number))
-	{
-		now = left + ((number - array[left]) * (right - left)) / (array[right] - array[left]);
-		if (array[now] < number)
-			left = now + 1;
-		else if (array[now] > number)
-			right = now - 1;
-		else
-			return left;
-	}
-	return -1;
+    int left = 0, right = size - 1, now;
+    while ((array[left] <= number) && (array[right] >= number))
+    {
+        now = left + ((number - array[left]) * (right - left)) / (array[right] - array[left]);
+        if (array[now] < number)
+            left = now + 1;
+        else if (array[now] > number)
+            right = now - 1;
+        else
+            return now;
+    }
+    return -1;
 }
