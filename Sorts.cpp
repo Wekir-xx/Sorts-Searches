@@ -157,3 +157,40 @@ void In_thread_quick_sort(int* array, size_t first, size_t last)
 
 void quick_sort(int* array, size_t size) { In_quick_sort(array, 0, size - 1); }
 void thread_quick_sort(int* array, size_t size) { In_thread_quick_sort(array, 0, size - 1); }
+
+void quick_sort_without_rec(int* array, size_t size)
+{
+    struct buff
+    {
+        size_t left;
+        size_t right;
+    };
+    buff* stack_array = new buff[size];
+    int index = 0;
+    stack_array[index] = {0, size - 1};
+    while (index >= 0)
+    {
+        buff current = stack_array[index--];
+        if (current.left < current.right)
+        {
+            size_t middle = array[(current.left + current.right) / 2];
+            size_t left = current.left;
+            size_t right = current.right;
+            while (left <= right)
+            {
+                while (array[left] < middle)
+                    left++;
+            
+                while (array[right] > middle)
+                        right--;
+
+                    if (left >= right) break;
+
+                    std::swap(array[left++], array[right--]);
+                }
+            stack_array[++index] = { current.left, right };
+            stack_array[++index] = { right + 1, current.right };
+        }
+    }
+    delete[] stack_array;
+}
