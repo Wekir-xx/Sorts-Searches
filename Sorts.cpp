@@ -5,7 +5,7 @@ void buble_sort(int* array, size_t size)
     for (size_t i = 0; i < size; i++)
     {
         bool tr = true;
-        for (size_t j = 0; j < size - 1 - i; j++)
+        for (size_t j = 0; j < size - 1; j++)
         {
             if (array[j] > array[j + 1])
             {
@@ -101,45 +101,39 @@ void In_merge_sort(int* array, size_t start, size_t end)
     delete[] array_2;
 }
 
-void merge_sort(int* array, size_t size)
-{
-    In_merge_sort(array, 0, size);
-}
+void merge_sort(int* array, size_t size) { In_merge_sort(array, 0, size); }
 
-void In_quick_sort(int* array, int first, int last)
-{
-    {
-        if (first < last)
-        {
-            int middle = array[(first + last) / 2];
-            int left = first;
-            int right = last;
-            while (left <= right)
-            {
-                while (array[left] < middle)
-                    left++;
-                while (array[right] > middle)
-                    right--;
-                if (left <= right)
-                {
-                    std::swap(array[left], array[right]);
-                    left++;
-                    right--;
-                }
-            }
-            In_quick_sort(array, first, right);
-            In_quick_sort(array, left, last);
-        }
-    }
-}
-
-void In_thread_quick_sort(int* array, int first, int last)
+void In_quick_sort(int* array, size_t first, size_t last)
 {
     if (first < last)
     {
-        int middle = array[(first + last) / 2];
-        int left = first;
-        int right = last;
+        size_t middle = array[(first + last) / 2];
+        size_t left = first;
+        size_t right = last;
+        while (left <= right)
+        {
+            while (array[left] < middle)
+                left++;
+
+            while (array[right] > middle)
+                right--;
+
+            if (left >= right) break;
+
+            std::swap(array[left++], array[right--]);
+        }
+        In_quick_sort(array, first, right);
+        In_quick_sort(array, right + 1, last);
+    }
+}
+
+void In_thread_quick_sort(int* array, size_t first, size_t last)
+{
+    if (first < last)
+    {
+        size_t middle = array[(first + last) / 2];
+        size_t left = first;
+        size_t right = last;
         while (left <= right)
         {
             while (array[left] < middle)
