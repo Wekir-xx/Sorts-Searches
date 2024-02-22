@@ -10,7 +10,8 @@ void insert_sort(int* array, size_t size);
 void merge_sort(int* array, size_t size);
 void quick_sort(int* array, size_t size);
 void thread_quick_sort(int* array, size_t size);
-void quick_sort_without_rec(int* array, size_t size)
+void quick_sort_without_rec(int* array, size_t size);
+void heap_sort(int array[], size_t size);
 ///////////////////////////////////////////////////////
 //////////////////////SEARCHES/////////////////////////
 int linear_search(int* array, size_t size, int number);
