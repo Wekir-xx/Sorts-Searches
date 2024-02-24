@@ -79,7 +79,8 @@ void In_merge_sort(int* array, size_t start, size_t end)
     if (end - start == 2)
     {
         if (array[start] <= array[start + 1]) return;
-        std::swap(array[start], array[start + 1]);        
+        std::swap(array[start], array[start + 1]);
+        return;
     }
     In_merge_sort(array, start, start + (end - start) / 2);
     In_merge_sort(array, start + (end - start) / 2, end);
